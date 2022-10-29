@@ -44,8 +44,7 @@ export const Login = async(req, res) => {
                 email: req.body.email
             }
         });
-        
-        console.log(user)
+
         const match = await bcrypt.compareSync(
             req.body.password, 
             user[0].password
@@ -84,7 +83,9 @@ export const Login = async(req, res) => {
         });
         res.json({accessToken});
     } catch (error) {
-       console.log(error.message)
+       res.status(404).json({
+        msg: "Email tidak ditemukan"
+       })
     }
 }
 
